@@ -3,10 +3,12 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   output: 'export',
-  basePath: '/diabetes-tracker',
+  basePath: '/Diabetes-Checker',
   images: {
     unoptimized: true,
   },
+  // Disable server-side features for static export
+  trailingSlash: true,
 }
 
 module.exports = nextConfig
