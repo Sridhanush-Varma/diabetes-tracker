@@ -1,20 +1,67 @@
-// Single Page Apps for GitHub Pages
-// MIT License
-// https://github.com/rafgraph/spa-github-pages
-// This script checks to see if a redirect is present in the query string,
-// converts it back into the correct URL and adds it to the
-// browser's history using window.history.replaceState(...),
-// which won't cause the browser to attempt to load the new URL.
-// When the single page app is loaded further down in this file,
-// the correct URL will be waiting in the browser's history for
-// the single page app to route accordingly.
-(function(l) {
-  if (l.search[1] === '/' ) {
-    var decoded = l.search.slice(1).split('&').map(function(s) { 
-      return s.replace(/~and~/g, '&')
-    }).join('?');
-    window.history.replaceState(null, null,
-        l.pathname.slice(0, -1) + decoded + l.hash
-    );
-  }
-}(window.location))
+// Fix for GitHub Pages 404 issues with Next.js static export
+// This script ensures that assets are loaded correctly with relative paths
+(function() {
+  // Add event listener for all link clicks
+  document.addEventListener('click', function(e) {
+    // Check if the clicked element is a link
+    if (e.target.tagName === 'A' && e.target.href) {
+      // Get the href attribute
+      const href = e.target.getAttribute('href');
+
+      // Check if it's an internal link (doesn't start with http or //)
+      if (href && !href.startsWith('http') && !href.startsWith('//') && !href.startsWith('#')) {
+        // Prevent default link behavior
+        e.preventDefault();
+
+        // Get the current path
+        const currentPath = window.location.pathname;
+
+        // Calculate the new path
+        let newPath;
+        if (href.startsWith('/')) {
+          // Absolute path
+          newPath = href;
+        } else {
+          // Relative path
+          const pathParts = currentPath.split('/');
+          pathParts.pop(); // Remove the last part
+          newPath = pathParts.join('/') + '/' + href;
+        }
+
+        // Navigate to the new path
+        window.location.href = newPath;
+      }
+    }
+  });
+
+  // Fix for asset paths
+  // This ensures that all assets are loaded with relative paths
+  const fixAssetPaths = function() {
+    // Fix script src attributes
+    document.querySelectorAll('script[src]').forEach(function(script) {
+      const src = script.getAttribute('src');
+      if (src && src.startsWith('/')) {
+        script.setAttribute('src', '.' + src);
+      }
+    });
+
+    // Fix link href attributes
+    document.querySelectorAll('link[href]').forEach(function(link) {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('/')) {
+        link.setAttribute('href', '.' + href);
+      }
+    });
+
+    // Fix image src attributes
+    document.querySelectorAll('img[src]').forEach(function(img) {
+      const src = img.getAttribute('src');
+      if (src && src.startsWith('/')) {
+        img.setAttribute('src', '.' + src);
+      }
+    });
+  };
+
+  // Run the fix when the page loads
+  window.addEventListener('DOMContentLoaded', fixAssetPaths);
+})();

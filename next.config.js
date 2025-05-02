@@ -3,8 +3,9 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   output: 'export',
-  basePath: '/Diabetes-Checker',
-  assetPrefix: '/Diabetes-Checker/',
+  // Use relative paths for GitHub Pages
+  basePath: '',
+  assetPrefix: './',
   images: {
     unoptimized: true,
   },

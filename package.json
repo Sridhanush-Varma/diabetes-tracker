@@ -7,8 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "postbuild": "node scripts/fix-asset-paths.js",
     "deploy": "gh-pages -d out",
-    "build:gh-pages": "cross-env NODE_ENV=production next build && next export && touch out/.nojekyll && copy public\\404.html out\\404.html"
+    "build:gh-pages": "npm run build && npm run postbuild"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.2",
