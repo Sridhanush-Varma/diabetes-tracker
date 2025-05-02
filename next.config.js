@@ -4,6 +4,7 @@ const nextConfig = {
   swcMinify: true,
   output: 'export',
   basePath: '/Diabetes-Checker',
+  assetPrefix: '/Diabetes-Checker/',
   images: {
     unoptimized: true,
   },
