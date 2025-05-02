@@ -42,7 +42,8 @@ export const parseExcelFile = (file: File): Promise<ImportedGlucoseRecord[]> => 
         const records = transformSpreadsheetData(jsonData);
         resolve(records);
       } catch (error) {
-        reject(new Error(`Failed to parse Excel file: ${error.message}`));
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+        reject(new Error(`Failed to parse Excel file: ${errorMessage}`));
       }
     };
     
@@ -66,11 +67,13 @@ export const parseCsvFile = (file: File): Promise<ImportedGlucoseRecord[]> => {
           const records = transformSpreadsheetData(results.data);
           resolve(records);
         } catch (error) {
-          reject(new Error(`Failed to parse CSV file: ${error.message}`));
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+          reject(new Error(`Failed to parse CSV file: ${errorMessage}`));
         }
       },
       error: (error) => {
-        reject(new Error(`CSV parsing error: ${error.message}`));
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+        reject(new Error(`Failed to parse CSV file: ${errorMessage}`));
       }
     });
   });
@@ -124,7 +127,8 @@ export const transformSpreadsheetData = (data: any[]): ImportedGlucoseRecord[] =
         food_description: foodDescription || ''
       });
     } catch (error) {
-      errors.push(`Row ${index + 1}: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      errors.push(`Row ${index + 1}: ${errorMessage}`);
     }
   });
   

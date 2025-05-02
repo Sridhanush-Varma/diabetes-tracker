@@ -86,11 +86,14 @@ export const importGlucoseRecords = async (
           // Add the successfully processed record to the result
           result.records.push(record);
         } catch (error) {
-          result.errors.push(`Error processing record (${record.date}, ${record.time_of_day}): ${error.message}`);
+          result.records.push(record);
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+          result.errors.push(`Error processing record (${record.date}, ${record.time_of_day}): ${errorMessage}`);
         }
       }
     } catch (error) {
-      result.errors.push(`Error processing batch: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      result.errors.push(`Error processing batch: ${errorMessage}`);
     }
   }
 

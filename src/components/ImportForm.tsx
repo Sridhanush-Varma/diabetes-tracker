@@ -41,7 +41,11 @@ const ImportForm: React.FC<ImportFormProps> = ({ userId, onImportComplete }) => 
       // Show a preview of the first 5 records
       setPreviewData(records.slice(0, 5));
     } catch (err) {
-      setError(err.message);
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unexpected error occurred');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -78,7 +82,11 @@ const ImportForm: React.FC<ImportFormProps> = ({ userId, onImportComplete }) => 
         fileInputRef.current.value = '';
       }
     } catch (err) {
-      setError(err.message);
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unexpected error occurred');
+      }
     } finally {
       setIsLoading(false);
     }

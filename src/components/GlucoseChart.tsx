@@ -8,6 +8,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  ChartOptions,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { GlucoseRecord } from '@/utils/supabase';
@@ -38,7 +39,7 @@ export default function GlucoseChart({ records, title = 'Glucose Levels Over Tim
     }
   }, [records]);
 
-  const options = {
+  const options: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
@@ -87,7 +88,7 @@ export default function GlucoseChart({ records, title = 'Glucose Levels Over Tim
         beginAtZero: false,
         grid: {
           color: 'rgba(229, 231, 235, 0.5)',
-          drawBorder: false,
+          drawTicks: false,
         },
         border: {
           display: false,
@@ -106,7 +107,7 @@ export default function GlucoseChart({ records, title = 'Glucose Levels Over Tim
           font: {
             family: "'Inter', sans-serif",
             size: 12,
-            weight: '500',
+            weight: 500,
           },
           color: '#4b5563',
           padding: {
@@ -117,7 +118,7 @@ export default function GlucoseChart({ records, title = 'Glucose Levels Over Tim
       x: {
         grid: {
           display: false,
-          drawBorder: false,
+          drawTicks: false,
         },
         border: {
           display: false,

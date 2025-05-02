@@ -7,14 +7,15 @@ interface ThemeContextType {
   toggleTheme: () => void;
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const defaultThemeContext: ThemeContextType = {
+  theme: 'light',
+  toggleTheme: () => {},
+};
+
+const ThemeContext = createContext<ThemeContextType>(defaultThemeContext);
 
 export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-  return context;
+  return useContext(ThemeContext);
 };
 
 type ThemeProviderProps = {
@@ -70,14 +71,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, value })
   // Use provided value or create a new one
   const contextValue = value || { theme, toggleTheme };
 
-  // Prevent flash of wrong theme while loading
-  if (!mounted && !value) {
-    return <div style={{ visibility: 'hidden' }}>{children}</div>;
-  }
-
   return (
     <ThemeContext.Provider value={contextValue}>
-      {children}
+      {mounted || value ? children : <div style={{ visibility: 'hidden' }}>{children}</div>}
     </ThemeContext.Provider>
   );
 };
