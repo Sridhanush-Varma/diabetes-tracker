@@ -74,33 +74,6 @@ A comprehensive web application for tracking and monitoring diabetes metrics ove
 4. View your history and reports
 5. Export your data for doctor visits
 
-## Deployment to GitHub Pages
-
-### Automatic Deployment with GitHub Actions
-
-1. Fork or clone this repository to your GitHub account
-2. Go to your repository settings and enable GitHub Pages
-3. The GitHub Actions workflow will automatically build and deploy the application to GitHub Pages whenever you push to the main branch
-
-### Manual Deployment
-
-1. Install the gh-pages package if not already installed:
-   ```
-   npm install --save-dev gh-pages
-   ```
-
-2. Build the application:
-   ```
-   npm run build
-   ```
-
-3. Deploy to GitHub Pages:
-   ```
-   npm run deploy
-   ```
-
-4. Your application will be available at `https://YOUR_USERNAME.github.io/Diabetes-Checker/`
-
 ## Troubleshooting
 
 ### Module not found: Can't resolve '@supabase/auth-helpers-react'
@@ -132,3 +105,13 @@ If you encounter any other issues:
 ## License
 
 [MIT](LICENSE)
+
+## Attribution Requirement
+
+If you use this project in any form (website, app, service, or derivative code), you **must** include the following attribution in your documentation, website footer, or credits page:
+
+> Created by Sridhanush Varma – [https://github.com/Sridhanush-Varma/diabetes-tracker](https://github.com/Sridhanush-Varma/diabetes-tracker)
+
+Thank you for respecting the work that went into this project! 
+
+
